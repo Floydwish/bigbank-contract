@@ -2,6 +2,20 @@
 pragma solidity ^0.8.17;
 
 /*
+-----1.项目结构-----
+├── src/
+│   └── Bigbank.sol          # 合约源码
+├── script/
+│   ├── Deploy.sol           # 部署脚本
+│   ├── TestFlow.sol         # 测试流程脚本
+│   └── Interactive.sol      # 交互式测试脚本
+├── test/
+│   └── Bigbank.t.sol        # 单元测试
+├── .env                     # 环境变量
+└── README.md                # 说明文件
+```
+
+-----2.项目需求-----
 在 Bank 合约基础之上，编写 IBank 接口及 BigBank 合约，
 使其满足 Bank 实现 IBank， BigBank 继承自 Bank ， 同时 BigBank 有附加要求：
 

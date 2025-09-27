@@ -14,7 +14,7 @@
 │   └── Interactive.sol      # 交互式测试脚本
 ├── test/
 │   └── Bigbank.t.sol        # 单元测试
-├── env.example              # 环境变量示例
+├── .env                     # 环境变量
 └── README_DEPLOY.md         # 本文件
 ```
 
