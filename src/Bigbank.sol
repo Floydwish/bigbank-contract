@@ -21,6 +21,7 @@ interface IBank{
     function withdraw(uint256 _amount) external;
 }
 
+//基础银行合约，实现 IBank 接口
 contract Bank is IBank {
     address private owner;              // 合约所有者地址
 
@@ -197,7 +198,9 @@ contract Bank is IBank {
 
 }
 
-// Bigbank: 继承自 Bank 合约
+
+// 扩展银行合约，增加管理员功能
+// 继承自 Bank 合约
 contract Bigbank is Bank{
     address public admin;
 
@@ -255,6 +258,7 @@ contract Bigbank is Bank{
 
 }
 
+// 管理员合约，用于管理资金提取
 contract Admin {
     // 所有者
     address private owner;
