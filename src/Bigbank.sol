@@ -2,20 +2,7 @@
 pragma solidity ^0.8.17;
 
 /*
------1.项目结构-----
-├── src/
-│   └── Bigbank.sol          # 合约源码
-├── script/
-│   ├── Deploy.sol           # 部署脚本
-│   ├── TestFlow.sol         # 测试流程脚本
-│   └── Interactive.sol      # 交互式测试脚本
-├── test/
-│   └── Bigbank.t.sol        # 单元测试
-├── .env                     # 环境变量
-└── README.md                # 说明文件
-```
-
------2.项目需求-----
+----------------0.需求描述----------------
 在 Bank 合约基础之上，编写 IBank 接口及 BigBank 合约，
 使其满足 Bank 实现 IBank， BigBank 继承自 Bank ， 同时 BigBank 有附加要求：
 
@@ -28,6 +15,29 @@ adminWithdraw 中会调用 IBank 接口的 withdraw 方法从而把 bank 合约�
 
 4.BigBank 和 Admin 合约 部署后，把 BigBank 的管理员转移给 Admin 合约地址，模拟几个用户的存款，
 然后Admin 合约的Owner地址调用 adminWithdraw(IBank bank) 把 BigBank 的资金转移到 Admin 地址。
+
+
+----------------1.合约关系----------------
+    IBank (接口)
+         ↑ 实现接口
+    Bank (基础合约)
+         ↑ 继承
+    Bigbank (扩展合约)
+         ↑ 通过接口调用
+    Admin (管理合约)
+
+----------------2.工程结构----------------
+├── src/
+│   └── Bigbank.sol          # 合约源码
+├── script/
+│   ├── Deploy.sol           # 部署脚本
+│   ├── TestFlow.sol         # 测试流程脚本
+│   └── Interactive.sol      # 交互式测试脚本
+├── test/
+│   └── Bigbank.t.sol        # 单元测试
+├── .env                     # 环境变量
+└── README.md                # 说明文件
+
 */
 
 // IBank 接口
