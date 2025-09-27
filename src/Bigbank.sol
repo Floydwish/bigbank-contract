@@ -16,6 +16,7 @@ adminWithdraw 中会调用 IBank 接口的 withdraw 方法从而把 bank 合约�
 然后Admin 合约的Owner地址调用 adminWithdraw(IBank bank) 把 BigBank 的资金转移到 Admin 地址。
 */
 
+// IBank 接口
 interface IBank{
     function withdraw(uint256 _amount) external;
 }
@@ -196,14 +197,16 @@ contract Bank is IBank {
 
 }
 
-
+// Bigbank: 继承自 Bank 合约
 contract Bigbank is Bank{
     address public admin;
 
+    // 部署者作为管理员
     constructor() {
         admin = msg.sender;
     }
 
+    // 检查存款金额是否大于 0.001 ether
     modifier minDeposit() {
         require(msg.value > 0.001 ether, "Deposit amount must greater than 0.001 ether");
         _;
@@ -238,6 +241,7 @@ contract Bigbank is Bank{
     }
 
     // 重写 bank 的 withdraw 函数，添加管理员权限限制
+    // 注：这里如果不重写，提款时调用父合约的 withdraw, 导致提款失败（父合约的 onlyOwner 检查通不过）
     function withdraw(uint256 _amount) public override onlyAdmin 
     {
         // 1. 检查合约总存款金额是否足够
@@ -252,16 +256,21 @@ contract Bigbank is Bank{
 }
 
 contract Admin {
+    // 所有者
     address private owner;
 
+    // 所有者设置为部署者
     constructor() {
         owner = msg.sender;
     }
 
+    // 管理员提款
+    // 注：先将 bigbank 的管理员设置为 本合约的 owner, 然后调用本合约的 adminWithdraw 提款
     function adminWithdraw(IBank bank) external {
         bank.withdraw(address(bank).balance);
     }
 
+    // 提款的接收
     receive() external payable {}
 }
 
